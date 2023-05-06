@@ -312,14 +312,12 @@ void copy_file(FILE* inputFile, FILE* outputFile) {
     size_t bufferSize;
 
     if (inputFile == NULL) {
-        printf("Cannot open %s for reading\n", inputFile);
-        exit(EXIT_FAILURE);
+        exit(1);
     }
 
     if (outputFile == NULL) {
-        printf("Cannot open %s for writing\n", outputFile);
         fclose(inputFile);
-        exit(EXIT_FAILURE);
+        exit(1);
     }
 
     fseek(inputFile, 0, SEEK_END);
@@ -331,7 +329,7 @@ void copy_file(FILE* inputFile, FILE* outputFile) {
         printf("Memory allocation error\n");
         fclose(inputFile);
         fclose(outputFile);
-        exit(EXIT_FAILURE);
+        exit(1);
     }
 
     fread(buffer, sizeof(char), bufferSize, inputFile);
