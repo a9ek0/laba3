@@ -6,20 +6,20 @@ FILE* open_bmp_file(const char *file_name, const char *extension){
         bmp_file = fopen(file_name, extension);
         if (bmp_file == NULL){
             fprintf(stderr, "Error: unable to open file.\n");
-            exit(EXIT_FAILURE);
+            exit(1);
         }
         BITMAPINFOHEADER info_header;
         fseek(bmp_file, 14, SEEK_SET);
         fread(&info_header, sizeof(BITMAPINFOHEADER), 1, bmp_file);
         if (info_header.biBitCount != 24){
             fprintf(stderr, "Error: BMP image is not 24-bit.\n");
-            exit(EXIT_FAILURE);
+            exit(1);
         }
 
         return bmp_file;
     }else{
         fprintf(stderr, "Error: the file has the wrong extension.\n");
-        exit(EXIT_FAILURE);
+        exit(1);
     }
 }
 
