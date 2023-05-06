@@ -29,15 +29,15 @@ typedef struct {
     uint32_t biClrUsed;
     uint32_t biClrImportant;
 } BITMAPINFOHEADER;
-#pragma pack(pop)
+
 
 
 typedef struct {
     uint8_t b;
     uint8_t g;
     uint8_t r;
-} __attribute__((packed)) PIXEL;
-
+} PIXEL;
+#pragma pack(pop)
 
 void convert_to_bw(FILE *input_file, FILE *output_file);
 void convert_to_negative(FILE *input_file, FILE *output_file);
