@@ -283,7 +283,7 @@ void add_white_noise(FILE* input_file, FILE* output_file, float noise_factor) {
 
     fwrite(&file_header, sizeof(BITMAPFILEHEADER), 1, output_file);
     fwrite(&header, sizeof(BITMAPINFOHEADER), 1, output_file);
-    fseek(output_file, file_header.bfOffBits, SEEK_SET);
+    fseek(output_file, (long)file_header.bfOffBits, SEEK_SET);
     fwrite(pixels, sizeof(PIXEL), pixel_count, output_file);
 
     free(pixels);
