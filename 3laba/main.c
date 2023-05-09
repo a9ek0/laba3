@@ -11,7 +11,7 @@ int main()
     input_file_name = (char*) malloc(256 * sizeof(char));
     output_file_name = (char*) malloc(8 * sizeof (char));
 
-    strcpy(output_file_name, "edited_");
+    strcpy_s(output_file_name, MAX_LINE_LENGTH, "edited_");
 
     printf("Enter name of the image that you want to edit.\n");
     scanf_s("%s", input_file_name);
@@ -19,7 +19,7 @@ int main()
     input_file_name = realloc(input_file_name, (strlen(input_file_name) + 1) * sizeof (char));
     output_file_name = realloc(output_file_name, (strlen(input_file_name) + strlen(output_file_name) + 1) * sizeof (char));
 
-    strcat(output_file_name, input_file_name);
+    strcat_s(output_file_name, MAX_LINE_LENGTH, input_file_name);
 
     input_file = open_bmp_file(input_file_name, "rb");
     output_file = open_bmp_file(output_file_name, "wb");

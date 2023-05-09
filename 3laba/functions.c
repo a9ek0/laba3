@@ -3,7 +3,7 @@
 FILE* open_bmp_file(const char *file_name, const char *extension){
     FILE *bmp_file;
     if(is_bmp_file(file_name)){
-        bmp_file = fopen(file_name, extension);
+        fopen_s(&bmp_file, file_name, extension);
         if (bmp_file == NULL){
             fprintf(stderr, "Error: unable to open file.\n");
             exit(1);
@@ -386,8 +386,8 @@ void menu(FILE *input_file, FILE *output_file, const char* output_file_name)
 
                 char command[100];
 
-                strcpy(command,  "start ");
-                strcat(command , output_file_name);
+                strcpy_s(command, MAX_LINE_LENGTH, "start ");
+                strcat_s(command, MAX_LINE_LENGTH, output_file_name);
 
                 system(command);
                 output_file = open_bmp_file(output_file_name, "rb+");

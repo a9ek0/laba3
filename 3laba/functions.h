@@ -6,6 +6,9 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
+#include <windows.h>
+#include <stdlib.h>
+#define  MAX_LINE_LENGTH 1024
 
 #pragma pack(push, 1)
 typedef struct {
