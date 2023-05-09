@@ -17,7 +17,7 @@ typedef struct {
     uint16_t bfReserved1;
     uint16_t bfReserved2;
     uint32_t bfOffBits;
-} BITMAPFILEHEADER;
+} tagBITMAPFILEHEADER;
 
 typedef struct {
     uint32_t biSize;
@@ -31,8 +31,8 @@ typedef struct {
     int32_t  biYPelsPerMeter;
     uint32_t biClrUsed;
     uint32_t biClrImportant;
-} BITMAPINFOHEADER;
-
+} tagBITMAPINFOHEADER;
+#pragma pack(pop)
 
 
 typedef struct {
@@ -40,13 +40,12 @@ typedef struct {
     uint8_t g;
     uint8_t r;
 } PIXEL;
-#pragma pack(pop)
 
 void convert_to_bw(FILE *input_file, FILE *output_file);
 void convert_to_negative(FILE *input_file, FILE *output_file);
 void gamma_correction(FILE *input_file, FILE *output_file, float gamma);
 int compare(const void* a, const void* b);
-size_t find_median_value(const PIXEL *pixels,const BITMAPINFOHEADER *info_header, size_t num_of_pixel);
+size_t find_median_value(const PIXEL *pixels, const tagBITMAPINFOHEADER *info_header, size_t num_of_pixel);
 void median_filtering(FILE *input_file, FILE *output_file, int window_size);
 size_t get_median_value(size_t* values, size_t count);
 void add_white_noise(FILE* input_file, FILE* output_file, float noise_factor);
