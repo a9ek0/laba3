@@ -44,10 +44,10 @@ void convert_to_bw(FILE *input_file, FILE *output_file) {
 
     PIXEL* pixels;
     tagBITMAPINFOHEADER header;
-    BITMAPFILEHEADER file_header;
+    tagBITMAPFILEHEADER file_header;
 
     fseek(input_file, 0, SEEK_SET);
-    fread(&file_header, sizeof(BITMAPFILEHEADER), 1, input_file);
+    fread(&file_header, sizeof(tagBITMAPFILEHEADER), 1, input_file);
     fread(&header, sizeof(tagBITMAPINFOHEADER), 1, input_file);
 
     size_t pixel_count = header.biWidth * header.biHeight;
@@ -63,7 +63,7 @@ void convert_to_bw(FILE *input_file, FILE *output_file) {
         pixel->b = brightness;
     }
 
-    fwrite(&file_header, sizeof(BITMAPFILEHEADER), 1, output_file);
+    fwrite(&file_header, sizeof(tagBITMAPFILEHEADER), 1, output_file);
     fwrite(&header, sizeof(tagBITMAPINFOHEADER), 1, output_file);
     fseek(output_file, file_header.bfOffBits, SEEK_SET);
     fwrite(pixels, sizeof(PIXEL), pixel_count, output_file);
@@ -86,10 +86,10 @@ void convert_to_negative(FILE *input_file, FILE *output_file) {
 
     PIXEL* pixels;
     tagBITMAPINFOHEADER header;
-    BITMAPFILEHEADER file_header;
+    tagBITMAPFILEHEADER file_header;
 
     fseek(input_file, 0, SEEK_SET);
-    fread(&file_header, sizeof(BITMAPFILEHEADER), 1, input_file);
+    fread(&file_header, sizeof(tagBITMAPFILEHEADER), 1, input_file);
     fread(&header, sizeof(tagBITMAPINFOHEADER), 1, input_file);
 
     size_t pixel_count = header.biWidth * header.biHeight;
@@ -104,7 +104,7 @@ void convert_to_negative(FILE *input_file, FILE *output_file) {
         pixel->b = 255 - pixel->b;
     }
 
-    fwrite(&file_header, sizeof(BITMAPFILEHEADER), 1, output_file);
+    fwrite(&file_header, sizeof(tagBITMAPFILEHEADER), 1, output_file);
     fwrite(&header, sizeof(tagBITMAPINFOHEADER), 1, output_file);
     fseek(output_file, file_header.bfOffBits, SEEK_SET);
     fwrite(pixels, sizeof(PIXEL), pixel_count, output_file);
@@ -127,10 +127,10 @@ void gamma_correction(FILE *input_file, FILE *output_file, float gamma)
 
     PIXEL* pixels;
     tagBITMAPINFOHEADER header;
-    BITMAPFILEHEADER file_header;
+    tagBITMAPFILEHEADER file_header;
 
     fseek(input_file, 0, SEEK_SET);
-    fread(&file_header, sizeof(BITMAPFILEHEADER), 1, input_file);
+    fread(&file_header, sizeof(tagBITMAPFILEHEADER), 1, input_file);
     fread(&header, sizeof(tagBITMAPINFOHEADER), 1, input_file);
 
     size_t pixel_count = header.biWidth * header.biHeight;
@@ -145,7 +145,7 @@ void gamma_correction(FILE *input_file, FILE *output_file, float gamma)
         pixel->b = (uint8_t)(255 * pow(pixel->b / 255.0, gamma));
     }
 
-    fwrite(&file_header, sizeof(BITMAPFILEHEADER), 1, output_file);
+    fwrite(&file_header, sizeof(tagBITMAPFILEHEADER), 1, output_file);
     fwrite(&header, sizeof(tagBITMAPINFOHEADER), 1, output_file);
     fseek(output_file, file_header.bfOffBits, SEEK_SET);
     fwrite(pixels, sizeof(PIXEL), pixel_count, output_file);
@@ -168,10 +168,10 @@ void median_filtering(FILE *input_file, FILE *output_file, int window_size)
 
     PIXEL* pixels;
     tagBITMAPINFOHEADER header;
-    BITMAPFILEHEADER file_header;
+    tagBITMAPFILEHEADER file_header;
 
     fseek(input_file, 0, SEEK_SET);
-    fread(&file_header, sizeof(BITMAPFILEHEADER), 1, input_file);
+    fread(&file_header, sizeof(tagBITMAPFILEHEADER), 1, input_file);
     fread(&header, sizeof(tagBITMAPINFOHEADER), 1, input_file);
 
     size_t pixel_count = header.biWidth * header.biHeight;
@@ -203,7 +203,7 @@ void median_filtering(FILE *input_file, FILE *output_file, int window_size)
     free(valuesg);
     free(valuesb);
 
-    fwrite(&file_header, sizeof(BITMAPFILEHEADER), 1, output_file);
+    fwrite(&file_header, sizeof(tagBITMAPFILEHEADER), 1, output_file);
     fwrite(&header, sizeof(tagBITMAPINFOHEADER), 1, output_file);
     fseek(output_file, file_header.bfOffBits, SEEK_SET);
     fwrite(pixels, sizeof(PIXEL), pixel_count, output_file);
@@ -256,10 +256,10 @@ void add_white_noise(FILE* input_file, FILE* output_file, float noise_factor) {
 
     PIXEL* pixels;
     tagBITMAPINFOHEADER header;
-    BITMAPFILEHEADER file_header;
+    tagBITMAPFILEHEADER file_header;
 
     fseek(input_file, 0, SEEK_SET);
-    fread(&file_header, sizeof(BITMAPFILEHEADER), 1, input_file);
+    fread(&file_header, sizeof(tagBITMAPFILEHEADER), 1, input_file);
     fread(&header, sizeof(tagBITMAPINFOHEADER), 1, input_file);
 
     size_t pixel_count = header.biWidth * header.biHeight;
@@ -281,7 +281,7 @@ void add_white_noise(FILE* input_file, FILE* output_file, float noise_factor) {
         pixel->b = (pixel->b + noise_b) > 255 ? 255 : (uint8_t)(pixel->b + noise_b);
     }
 
-    fwrite(&file_header, sizeof(BITMAPFILEHEADER), 1, output_file);
+    fwrite(&file_header, sizeof(tagBITMAPFILEHEADER), 1, output_file);
     fwrite(&header, sizeof(tagBITMAPINFOHEADER), 1, output_file);
     fseek(output_file, (long)file_header.bfOffBits, SEEK_SET);
     fwrite(pixels, sizeof(PIXEL), pixel_count, output_file);
